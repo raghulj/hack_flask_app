@@ -1,5 +1,5 @@
 *.py[cod]
-
+*.pyc
 # C extensions
 *.so
 
@@ -28,7 +28,7 @@ nosetests.xml
 
 # Translations
 *.mo
-
+*.pyc
 # Mr Developer
 .mr.developer.cfg
 .project

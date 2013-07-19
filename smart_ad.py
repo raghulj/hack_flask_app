@@ -8,21 +8,20 @@ app.debug = True
 
 
 def get_smart_ad(category, price_range):
-	if category and price_range:
-		data = {}
-		arr = []
-		data['title'] = "Some detail"
-		data['image'] = "http://www.freegreatdesign.com/icon/large-apple-icon-png-2921"
-		data['summary'] = "Please buy our product"
-		arr.append(data)
-		return arr
+		url =  'http://hackapp.raghulj.com/api/get_ad.php?category='+category+'&price_range='+price_range
+		html = get_url_response(url)
+		return json.loads(html)
 
+
+def get_url_response(url):
+	response = urllib2.urlopen(url)
+	html = response.read()
+	return html
 
 @app.route('/listing_detail/<listing_id>')
 def smart_detail(listing_id):
 	url =  'http://api.propertyguru.com.sg/listing/view/%s' % listing_id
-	response = urllib2.urlopen(url)
-	html = response.read()
+	html = get_url_response(url)
 	dd = json.loads(html)
 	try:
 		if dd['price'] and dd['description']:
@@ -33,14 +32,7 @@ def smart_detail(listing_id):
 			if ad:
 				dd['advertisements'] = ad
 	except:
-		## jsut ignore for poc
-		print 
+		pass
+		
 	return jsonify(dd)
 
-
-
-# print get_price_range(4000)
-# print get_price_range(1500)
-# print get_price_range(400)
-
-# print get_ad_category(descrip)
