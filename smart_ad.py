@@ -4,7 +4,7 @@ import simplejson as json
 from logix import *
 
 app = Flask(__name__)
-app.debug = True
+#app.debug = True
 
 
 def get_smart_ad(category, price_range):
@@ -33,6 +33,6 @@ def smart_detail(listing_id):
 				dd['advertisements'] = ad
 	except:
 		pass
-		
+
 	return jsonify(dd)
 
