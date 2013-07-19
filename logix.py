@@ -16,9 +16,15 @@ CATEGORY = {}
 CATEGORY['FURN'] = 'Not furnished'
 CATEGORY['ELEC'] = 'No aircon'
 CATEGORY['FURN'] = 'partially furnished'
-CATEGORY['UTEN'] = 'No Cooking'
+CATEGORY['FOOD'] = 'No Cooking'
 CATEGORY['WIFI'] = 'No wifi'
 CATEGORY['FURN'] = 'Unfurnished'
+CATEGORY['WIFI'] = 'NO WIFI'
+CATEGORY['MISC'] = 'Spacious'
+CATEGORY['ELEC'] = 'without A/C'
+
+
+
 
 PRICE_HIGH = 2000
 PRICE_MID = 1000
@@ -31,22 +37,13 @@ def get_price_range(price):
 	elif price < 1000:
 		return "L"
 
-validators = [
-		'No aircon',
-		'Not furnished',
-		'partially furnished',
-		'No Cooking',
-		'No wifi',
-		'Unfurnished'
-]
-
 
 def analyse(description_text):
 	various_sentences= regexp_tokenize(description_text, r'[,\.\?!"\n\r]\s*', gaps=True)
 	suggested_data = {}
 
 	for sent in various_sentences:
-		for valid in validators:
+		for valid in CATEGORY.values():
 			rate  = fuzz.ratio(valid, sent)
 			if rate > 50:
 				suggested_data[valid] = rate
